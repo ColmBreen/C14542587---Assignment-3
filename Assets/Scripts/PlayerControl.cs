@@ -9,6 +9,11 @@ public class PlayerControl : MonoBehaviour {
 	private bool grounded;
 	private float moveVelocity;
 	
+	public GameObject Bullet;
+	public float fireRate = 0.5f;
+	private float nextFire = 0.0f;
+	public Transform ShotSpawn;
+	
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
@@ -17,6 +22,11 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
+		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+		}
 	}
 	
 	void FixedUpdate()
@@ -24,7 +34,7 @@ public class PlayerControl : MonoBehaviour {
 		moveVelocity = 0.0f;
 		rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		
-		if(Input.GetKeyDown(KeyCode.Space) && grounded == true)
+		if(Input.GetKeyDown(KeyCode.W) && grounded == true)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, jump);	
 		}
