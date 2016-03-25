@@ -16,4 +16,19 @@ public class BulletController : MonoBehaviour {
 		else
 			rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);
 	}
+	
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.gameObject.tag == "Dirt")
+		{
+			GameObject dirt = GameObject.FindWithTag("Dirt");
+			TerrainDestroy terrainDestroy = dirt.GetComponent<TerrainDestroy>();
+			terrainDestroy.health -= 10;
+			if(terrainDestroy.health <= 0)
+			{
+				Destroy(other.gameObject);
+			}
+			Destroy(gameObject);
+		}
+	}
 }
