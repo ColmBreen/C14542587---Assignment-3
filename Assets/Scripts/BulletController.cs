@@ -9,6 +9,11 @@ public class BulletController : MonoBehaviour {
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>(); 
-		rb.velocity = new Vector2(bulletSpeed, 0.0f);
+		GameObject player = GameObject.FindWithTag("Player");
+		PlayerControl playerControl = player.GetComponent<PlayerControl>();
+		if(playerControl.direction == 1)
+			rb.velocity = new Vector2(bulletSpeed, 0.0f);
+		else
+			rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);
 	}
 }

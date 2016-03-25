@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject Bullet;
 	public float fireRate = 0.5f;
 	private float nextFire = 0.0f;
+	public int direction = 1;
 	public Transform ShotSpawn;
 	
 	void Start()
@@ -22,10 +23,14 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
+		
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			nextFire = Time.time + fireRate;
-			Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+			if(direction == 1)
+				Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+			else
+				Instantiate (Bullet, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
 		}
 	}
 	
@@ -41,11 +46,13 @@ public class PlayerControl : MonoBehaviour {
 		
 		if(Input.GetKey(KeyCode.A))
 		{
+			direction = 0;
 			moveVelocity = -speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
 		else if(Input.GetKey(KeyCode.D))
 		{
+			direction = 1;
 			moveVelocity = speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
@@ -54,19 +61,16 @@ public class PlayerControl : MonoBehaviour {
 		
 	}
 	
-	void OnTriggerEnter2D(Collider2D other)
+	void OnTriggerEnter2D()
     {
-		if(other.gameObject.CompareTag("Dirt"))
-		{
 			grounded = true;
-		}
+		
     }
 	
-	void OnTriggerExit2D(Collider2D other)
+	void OnTriggerExit2D()
     {
-        if(other.gameObject.CompareTag("Dirt"))
-		{
+		
 			grounded = false;
-		}
+		
     }
 }
