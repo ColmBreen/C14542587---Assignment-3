@@ -44,7 +44,7 @@ public class PlayerControl : MonoBehaviour {
 			rb.velocity = new Vector2(rb.velocity.x, jump);	
 		}
 		
-		if(Input.GetKey(KeyCode.A))
+		else if(Input.GetKey(KeyCode.A))
 		{
 			direction = 0;
 			moveVelocity = -speed;
@@ -56,21 +56,23 @@ public class PlayerControl : MonoBehaviour {
 			moveVelocity = speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
-		
-		
-		
 	}
 	
 	void OnTriggerEnter2D()
     {
-			grounded = true;
+		grounded = true;
 		
     }
+	
+	void OnTriggerStay2D()
+	{
+		grounded = true;
+	}
 	
 	void OnTriggerExit2D()
     {
 		
-			grounded = false;
+		grounded = false;
 		
     }
 }

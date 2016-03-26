@@ -3,14 +3,10 @@ using System.Collections;
 
 public class TerrainDestroy : MonoBehaviour {
 
-	public int health = 20;
+	public int health;
 	
-	//void Update()
-	//{
-	//	
-	//	if(health <= 0)
-	//	{
-	//		Destroy(gameObject);
-	//	}
-	//}
+	void Start()
+	{
+		health = 20;
+	}
 }
