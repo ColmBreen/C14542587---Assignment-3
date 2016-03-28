@@ -8,8 +8,10 @@ public class PlayerControl : MonoBehaviour {
 	public float jump;
 	private bool grounded;
 	private float moveVelocity;
+	public int grenades = 3;
 	
 	public GameObject Bullet;
+	public GameObject Grenade;
 	public float fireRate = 0.5f;
 	private float nextFire = 0.0f;
 	public int direction = 1;
@@ -32,6 +34,21 @@ public class PlayerControl : MonoBehaviour {
 			else
 				Instantiate (Bullet, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
 		}
+		
+		//if(Input.GetKey(KeyCode.LeftShift) && grenades > 0 && Time.time > nextFire)
+		//{
+		//	nextFire = Time.time + fireRate;
+		//	if(direction == 1)
+		//	{
+		//		Instantiate (Grenade, ShotSpawn.position, ShotSpawn.rotation);
+		//		grenades--;
+		//	}
+		//	else
+		//	{
+		//		Instantiate (Grenade, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
+		//		grenades--;
+		//	}
+		//}
 	}
 	
 	void FixedUpdate()
@@ -39,7 +56,7 @@ public class PlayerControl : MonoBehaviour {
 		moveVelocity = 0.0f;
 		rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		
-		if(Input.GetKeyDown(KeyCode.W) && grounded == true)
+		if(Input.GetKey(KeyCode.W) && grounded == true)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, jump);	
 		}

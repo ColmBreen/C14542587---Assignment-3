@@ -27,6 +27,7 @@ public class BulletController : MonoBehaviour {
 			if(terrainDestroy.health <= 0)
 			{
 				Destroy(other.gameObject);
+				terrainDestroy.health = 20;
 			}
 			Destroy(gameObject);
 		}
