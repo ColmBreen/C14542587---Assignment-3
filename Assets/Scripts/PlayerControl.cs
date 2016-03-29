@@ -8,10 +8,10 @@ public class PlayerControl : MonoBehaviour {
 	public float jump;
 	private bool grounded;
 	private float moveVelocity;
-	public int grenades = 3;
+	//public int grenades = 3;
 	
 	public GameObject Bullet;
-	public GameObject Grenade;
+	//public GameObject Grenade;
 	public float fireRate = 0.5f;
 	private float nextFire = 0.0f;
 	public int direction = 1;
@@ -29,10 +29,20 @@ public class PlayerControl : MonoBehaviour {
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			nextFire = Time.time + fireRate;
-			if(direction == 1)
-				Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+			if(Input.GetKey(KeyCode.S))
+			{
+				if(direction == 1)
+					Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
+				else
+					Instantiate (Bullet, (ShotSpawn.position + Vector3.left) + (Vector3.down / 2), ShotSpawn.rotation);
+			}
 			else
-				Instantiate (Bullet, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
+			{
+				if(direction == 1)
+					Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+				else
+					Instantiate (Bullet, (ShotSpawn.position + Vector3.left), ShotSpawn.rotation);
+			}
 		}
 		
 		//if(Input.GetKey(KeyCode.LeftShift) && grenades > 0 && Time.time > nextFire)
@@ -75,21 +85,27 @@ public class PlayerControl : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerEnter2D()
+	void OnTriggerEnter2D(Collider2D other)
     {
-		grounded = true;
-		
+		if(other.gameObject.tag == "Dirt")
+		{
+			grounded = true;
+		}
     }
 	
-	void OnTriggerStay2D()
+	void OnTriggerStay2D(Collider2D other)
 	{
-		grounded = true;
+		if(other.gameObject.tag == "Dirt")
+		{
+			grounded = true;
+		}
 	}
 	
-	void OnTriggerExit2D()
+	void OnTriggerExit2D(Collider2D other)
     {
-		
-		grounded = false;
-		
+		if(other.gameObject.tag == "Dirt")
+		{
+			grounded = false;
+		}
     }
 }
