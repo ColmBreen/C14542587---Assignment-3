@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyBehaviour : MonoBehaviour {
 	
 	private Rigidbody2D erb;
-	private Vector2 startPos;
+	private float startPos;
 	private float moveVelocity;
 	public float speed;
 	private int direction;
@@ -12,16 +12,25 @@ public class EnemyBehaviour : MonoBehaviour {
 	void Start()
 	{
 		erb = GetComponent<Rigidbody2D>();
-		startPos = erb.transform.position;
+		startPos = erb.transform.position.x;
 		direction = -1;
 	}
 	
 	void FixedUpdate()
 	{
-		if(erb.transform.position > startPos - Vector2(10, 0) && direction < 0)
+		if(erb.transform.position.x > (startPos - 10) && direction < 0)
 		{
 			moveVelocity = -speed;
 			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
+		}
+		else if(erb.transform.position.x < (startPos + 10) && direction > 0)
+		{
+			moveVelocity = speed;
+			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
+		}
+		else
+		{
+			direction = direction * (-1);
 		}
 	}
 }
