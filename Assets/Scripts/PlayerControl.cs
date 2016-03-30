@@ -34,14 +34,14 @@ public class PlayerControl : MonoBehaviour {
 				if(direction == 1)
 					Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
 				else
-					Instantiate (Bullet, (ShotSpawn.position + Vector3.left) + (Vector3.down / 2), ShotSpawn.rotation);
+					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + (Vector3.left/2))) + (Vector3.down / 2), ShotSpawn.rotation);
 			}
 			else
 			{
 				if(direction == 1)
 					Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
 				else
-					Instantiate (Bullet, (ShotSpawn.position + Vector3.left), ShotSpawn.rotation);
+					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + (Vector3.left/2))), ShotSpawn.rotation);
 			}
 		}
 		

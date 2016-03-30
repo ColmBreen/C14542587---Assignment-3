@@ -31,5 +31,17 @@ public class BulletController : MonoBehaviour {
 			}
 			Destroy(gameObject);
 		}
+		if(other.gameObject.tag == "Enemy")
+		{
+			GameObject enemy = GameObject.FindWithTag("Enemy");
+			EnemyBehaviour killEnemy = enemy.GetComponent<EnemyBehaviour>();
+			killEnemy.health -= 10;
+			if(killEnemy.health <= 0)
+			{
+				Destroy(other.gameObject);
+				killEnemy.health = 50;
+			}
+			Destroy(gameObject);
+		}
 	}
 }
