@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	private float startPos;
 	private float moveVelocity;
 	public float speed;
-	private int direction;
+	public int directions;
 	public int health;
 	private bool wall;
 	private bool shootL, shootR;
@@ -20,7 +20,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		erb = GetComponent<Rigidbody2D>();
 		startPos = erb.transform.position.x;
-		direction = -1;
+		directions = -1;
 		health = 50;
 		wall = false;
 		shootL = false; 
@@ -34,6 +34,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		if((playerC.posX - 10) < erb.transform.position.x && playerC.posX > erb.transform.position.x)
 		{
 			shootR = true;
+			this.directions = 1;
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{
@@ -44,11 +45,12 @@ public class EnemyBehaviour : MonoBehaviour {
 		else if((playerC.posX + 10) > erb.transform.position.x && playerC.posX < erb.transform.position.x)
 		{
 			shootL = true;
+			this.directions = -1;
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{
 				nextFire = Time.time + fireRate;
-				Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left + Vector3.left)), ShotSpawn.rotation);
+				Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)), ShotSpawn.rotation);
 			}
 		}
 		else
@@ -60,20 +62,32 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
-		if(erb.transform.position.x > (startPos - 10) && direction < 0 && wall == false && shootR == false && shootL == false)
+		if(erb.transform.position.x > (startPos - 10) && directions < 0 && wall == false && shootR == false && shootL == false)
 		{
 			moveVelocity = -speed;
 			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
 		}
-		else if(erb.transform.position.x < (startPos + 10) && direction > 0 && wall == false && shootR == false && shootL == false)
+		else if(erb.transform.position.x < (startPos + 10) && directions > 0 && wall == false && shootR == false && shootL == false)
 		{
 			moveVelocity = speed;
 			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
 		}
-		else
+		else if(shootR == false && shootL == false)
 		{
-			direction = direction * (-1);
+			directions = directions * (-1);
 			wall = false;
+		}
+	}
+	
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Bullet")
+		{
+			health -= 10;
+		}
+		if(health <= 0)
+		{
+			Destroy(gameObject);
 		}
 	}
 	

@@ -9,6 +9,8 @@ public class PlayerControl : MonoBehaviour {
 	public float posX;
 	private bool grounded;
 	private float moveVelocity;
+	public int health;
+	public bool fire = false;
 	//public int grenades = 3;
 	
 	public GameObject Bullet;
@@ -22,6 +24,7 @@ public class PlayerControl : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;
+		health = 100;
 	}
 	
 	void Update()
@@ -29,20 +32,21 @@ public class PlayerControl : MonoBehaviour {
 		posX = rb.transform.position.x;
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
+			fire = true;
 			nextFire = Time.time + fireRate;
 			if(Input.GetKey(KeyCode.S))
 			{
 				if(direction == 1)
 					Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
 				else
-					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + (Vector3.left/2))) + (Vector3.down / 2), ShotSpawn.rotation);
+					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
 			}
 			else
 			{
 				if(direction == 1)
 					Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
 				else
-					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + (Vector3.left/2))), ShotSpawn.rotation);
+					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)), ShotSpawn.rotation);
 			}
 		}
 		
@@ -67,7 +71,7 @@ public class PlayerControl : MonoBehaviour {
 		moveVelocity = 0.0f;
 		rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		
-		if(Input.GetKey(KeyCode.W) && grounded == true)
+		if(Input.GetKeyDown(KeyCode.W) && grounded == true)
 		{
 			rb.velocity = new Vector2(rb.velocity.x, jump);	
 		}
@@ -83,6 +87,18 @@ public class PlayerControl : MonoBehaviour {
 			direction = 1;
 			moveVelocity = speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+		}
+	}
+	
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Bullet")
+		{
+			health -= 10;
+		}
+		if(health <= 0)
+		{
+			Destroy(gameObject);
 		}
 	}
 	

@@ -9,4 +9,16 @@ public class TerrainDestroy : MonoBehaviour {
 	{
 		health = 20;
 	}
+	
+	void OnCollisionEnter2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Bullet")
+		{
+			health -= 10;
+		}
+		if(health <= 0)
+		{
+			Destroy(gameObject);
+		}
+	}
 }
