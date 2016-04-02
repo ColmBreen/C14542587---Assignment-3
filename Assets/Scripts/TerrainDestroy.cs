@@ -4,6 +4,7 @@ using System.Collections;
 public class TerrainDestroy : MonoBehaviour {
 
 	public int health;
+	public GameObject dirtParticles;
 	
 	void Start()
 	{
@@ -18,6 +19,7 @@ public class TerrainDestroy : MonoBehaviour {
 		}
 		if(health <= 0)
 		{
+			Instantiate(dirtParticles, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}

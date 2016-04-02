@@ -98,7 +98,7 @@ public class PlayerControl : MonoBehaviour {
 		}
 		if(health <= 0)
 		{
-			Destroy(gameObject);
+			GM.instance.LoseLife();
 		}
 	}
 	

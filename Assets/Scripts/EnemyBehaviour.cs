@@ -29,6 +29,8 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void Update()
 	{
+		//GameObject player = GameObject.FindWithTag("Player");
+		//PlayerControl playerC = player.GetComponent<PlayerControl>();
 		GameObject player = GameObject.FindWithTag("Player");
 		PlayerControl playerC = player.GetComponent<PlayerControl>();
 		if((playerC.posX - 10) < erb.transform.position.x && playerC.posX > erb.transform.position.x)
