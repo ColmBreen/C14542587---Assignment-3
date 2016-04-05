@@ -6,7 +6,6 @@ public class PlayerControl : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float speed;
 	public float jump;
-	public float posX;
 	private bool grounded;
 	private float moveVelocity;
 	public int health;
@@ -29,7 +28,10 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
-		posX = rb.transform.position.x;
+		if(Input.GetKeyDown(KeyCode.H))
+		{
+			GM.instance.LoseLife();
+		}
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			fire = true;

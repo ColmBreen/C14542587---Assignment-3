@@ -15,6 +15,9 @@ public class EnemyBehaviour : MonoBehaviour {
 	public float fireRate = 0.5f;
 	public float nextFire = 0.0f;
 	public GameObject Bullet;
+	public GameObject bloodParticles;
+	public GameObject playerC;
+	Vector3 temp, temp2;
 	
 	void Start()
 	{
@@ -29,11 +32,10 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void Update()
 	{
-		//GameObject player = GameObject.FindWithTag("Player");
-		//PlayerControl playerC = player.GetComponent<PlayerControl>();
-		GameObject player = GameObject.FindWithTag("Player");
-		PlayerControl playerC = player.GetComponent<PlayerControl>();
-		if((playerC.posX - 10) < erb.transform.position.x && playerC.posX > erb.transform.position.x)
+		temp = playerC.transform.position - new Vector3(10f, 0f, 0f);
+		temp2 = playerC.transform.position + new Vector3(10f, 0f, 0f);
+		//if((playerC.transform.position - new Vector3(10f, 0f, 0f)) < erb.transform.position && playerC.transform.position > erb.transform.position.x)
+		if((temp.x < erb.transform.position.x) && playerC.transform.position.x > erb.transform.position.x)
 		{
 			shootR = true;
 			this.directions = 1;
@@ -44,7 +46,8 @@ public class EnemyBehaviour : MonoBehaviour {
 				Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
 			}
 		}
-		else if((playerC.posX + 10) > erb.transform.position.x && playerC.posX < erb.transform.position.x)
+		//else if((playerC.transform.position + 10) > erb.transform.position.x && playerC.transform.position < erb.transform.position.x)
+		else if((temp2.x > erb.transform.position.x) && playerC.transform.position.x < erb.transform.position.x)
 		{
 			shootL = true;
 			this.directions = -1;
@@ -89,6 +92,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 		if(health <= 0)
 		{
+			Instantiate(bloodParticles, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}
 	}
