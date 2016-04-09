@@ -13,9 +13,14 @@ public class GM : MonoBehaviour {
 	public GameObject player;
 	public GameObject enemyPrefab;
 	public GameObject bloodParticles;
+	public Vector3 playerPos;
 	public static GM instance = null;
+	public bool playerFire = false;
+	public int playerDirection = 0;
 	
 	private GameObject clonePlayer;
+	private GameObject enemiesObj;
+	private bool dead = false;
 	
 	// Use this for initialization
 	void Start () 
@@ -35,7 +40,15 @@ public class GM : MonoBehaviour {
 	public void Setup()
 	{
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
-		Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+		enemiesObj = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
+	}
+	
+	void LateUpdate()
+	{
+		if(!dead)
+			playerPos = clonePlayer.transform.position;
+		else
+			playerPos = playerPos;
 	}
 	
 	void CheckGameOver()
@@ -58,7 +71,9 @@ public class GM : MonoBehaviour {
 		lives--;
 		livesText.text = "Lives: " + lives;
 		Instantiate(bloodParticles, player.transform.position, Quaternion.identity);
+		dead = true;
 		Destroy(clonePlayer);
+		Destroy(enemiesObj);
 		Invoke("SetupPlayer", resetDelay);
 		CheckGameOver();
 	}
@@ -66,5 +81,7 @@ public class GM : MonoBehaviour {
 	void SetupPlayer()
 	{
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
+		enemiesObj = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
+		dead = false;
 	}
 }

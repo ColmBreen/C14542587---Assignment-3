@@ -28,13 +28,9 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.H))
-		{
-			GM.instance.LoseLife();
-		}
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
-			fire = true;
+			GM.instance.playerFire = true;
 			nextFire = Time.time + fireRate;
 			if(Input.GetKey(KeyCode.S))
 			{
@@ -81,12 +77,14 @@ public class PlayerControl : MonoBehaviour {
 		else if(Input.GetKey(KeyCode.A))
 		{
 			direction = 0;
+			GM.instance.playerDirection = 0;
 			moveVelocity = -speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
 		else if(Input.GetKey(KeyCode.D))
 		{
 			direction = 1;
+			GM.instance.playerDirection = 1;
 			moveVelocity = speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}

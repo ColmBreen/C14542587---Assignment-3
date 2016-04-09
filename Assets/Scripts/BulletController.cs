@@ -10,15 +10,13 @@ public class BulletController : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>(); 
 		
-		GameObject player = GameObject.FindWithTag("Player");
-		PlayerControl playerControl = player.GetComponent<PlayerControl>();
-		if(playerControl.fire == true)
+		if(GM.instance.playerFire == true)
 		{
-			if(playerControl.direction == 1)
+			if(GM.instance.playerDirection == 1)
 				rb.velocity = new Vector2(bulletSpeed, 0.0f);
 			else
 				rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);
-			playerControl.fire = false;
+			GM.instance.playerFire = false;
 		}
 		else
 		{
