@@ -20,9 +20,7 @@ public class BulletController : MonoBehaviour {
 		}
 		else
 		{
-			GameObject enemy = GameObject.FindWithTag("Enemy");
-			EnemyBehaviour enemyControl = enemy.GetComponent<EnemyBehaviour>();
-			if(enemyControl.directions == 1)
+			if(GM.instance.enemyDirection == 1)
 				rb.velocity = new Vector2(bulletSpeed, 0.0f);
 			else
 				rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);

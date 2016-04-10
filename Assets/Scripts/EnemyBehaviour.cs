@@ -24,6 +24,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		erb = GetComponent<Rigidbody2D>();
 		startPos = erb.transform.position.x;
 		directions = -1;
+		GM.instance.enemyDirection = -1;
 		health = 50;
 		wall = false;
 		shootL = false; 
@@ -43,7 +44,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			if(Time.time > nextFire)
 			{
 				nextFire = Time.time + fireRate;
-				Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
+				Instantiate (Bullet, ShotSpawn.position + Vector3.right, ShotSpawn.rotation);
 			}
 		}
 		//else if((playerC.transform.position + 10) > erb.transform.position.x && playerC.transform.position < erb.transform.position.x)
@@ -80,6 +81,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		else if(shootR == false && shootL == false)
 		{
 			directions = directions * (-1);
+			GM.instance.enemyDirection *= -1;
 			wall = false;
 		}
 	}

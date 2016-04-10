@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;
-		health = 100;
+		health = 50;
 	}
 	
 	void Update()

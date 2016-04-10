@@ -17,6 +17,7 @@ public class GM : MonoBehaviour {
 	public static GM instance = null;
 	public bool playerFire = false;
 	public int playerDirection = 0;
+	public int enemyDirection = -1;
 	
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
