@@ -4,18 +4,18 @@ using System.Collections;
 public class PlayerControl : MonoBehaviour {
 	
 	private Rigidbody2D rb;
-	public float speed;
-	public float jump;
 	private bool grounded;
 	private float moveVelocity;
+	private float nextFire = 0.0f;
+	private float fireRate = 0.5f;
+	private int grenades = 3;
+	
+	public float speed;
+	public float jump;
 	public int health;
 	public bool fire = false;
-	//public int grenades = 3;
-	
 	public GameObject Bullet;
-	//public GameObject Grenade;
-	public float fireRate = 0.5f;
-	private float nextFire = 0.0f;
+	public GameObject Grenade;
 	public int direction = 1;
 	public Transform ShotSpawn;
 	
@@ -48,20 +48,20 @@ public class PlayerControl : MonoBehaviour {
 			}
 		}
 		
-		//if(Input.GetKey(KeyCode.LeftShift) && grenades > 0 && Time.time > nextFire)
-		//{
-		//	nextFire = Time.time + fireRate;
-		//	if(direction == 1)
-		//	{
-		//		Instantiate (Grenade, ShotSpawn.position, ShotSpawn.rotation);
-		//		grenades--;
-		//	}
-		//	else
-		//	{
-		//		Instantiate (Grenade, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
-		//		grenades--;
-		//	}
-		//}
+		if(Input.GetKeyDown(KeyCode.LeftShift) && grenades > 0 && Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			if(direction == 1)
+			{
+				Instantiate (Grenade, ShotSpawn.position, ShotSpawn.rotation);
+				grenades--;
+			}
+			else
+			{
+				Instantiate (Grenade, ShotSpawn.position + Vector3.left, ShotSpawn.rotation);
+				grenades--;
+			}
+		}
 	}
 	
 	void FixedUpdate()

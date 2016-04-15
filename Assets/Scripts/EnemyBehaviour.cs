@@ -35,11 +35,11 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		temp = GM.instance.playerPos - new Vector3(10f, 0f, 0f);
 		temp2 = GM.instance.playerPos + new Vector3(10f, 0f, 0f);
-		//if((playerC.transform.position - new Vector3(10f, 0f, 0f)) < erb.transform.position && playerC.transform.position > erb.transform.position.x)
 		if((temp.x < erb.transform.position.x) && GM.instance.playerPos.x > erb.transform.position.x)
 		{
 			shootR = true;
 			this.directions = 1;
+			GM.instance.enemyDirection = 1;
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{
@@ -47,11 +47,11 @@ public class EnemyBehaviour : MonoBehaviour {
 				Instantiate (Bullet, ShotSpawn.position + Vector3.right, ShotSpawn.rotation);
 			}
 		}
-		//else if((playerC.transform.position + 10) > erb.transform.position.x && playerC.transform.position < erb.transform.position.x)
 		else if((temp2.x > erb.transform.position.x) && GM.instance.playerPos.x < erb.transform.position.x)
 		{
 			shootL = true;
 			this.directions = -1;
+			GM.instance.enemyDirection = -1;
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{

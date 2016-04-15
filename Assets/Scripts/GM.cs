@@ -14,16 +14,16 @@ public class GM : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject bloodParticles;
 	public Vector3 playerPos;
-	public static GM instance = null;
 	public bool playerFire = false;
 	public int playerDirection = 0;
 	public int enemyDirection = -1;
+	
+	public static GM instance = null;
 	
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
 	private bool dead = false;
 	
-	// Use this for initialization
 	void Start () 
 	{
 		if(instance == null)
