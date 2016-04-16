@@ -19,11 +19,22 @@ public class GrenadeController : MonoBehaviour {
 		cook = Time.time + 5f;
 	}
 	
-	void onTriggerStay2D(Collider2D other)
+	void Update()
 	{
-		if(Time.time < cook)
+		if(Time.time > cook)
 		{
-			
+			Explosion(rb.transform.position, 15f);
+		}
+	}
+	
+	void Explosion(Vector3 centre, float radius)
+	{
+		int i = 0;
+		Collider[] colliders = Physics.OverlapSphere(centre, radius);
+		while(i < colliders.Length)
+		{
+			colliders[i].grenadeDamage();
+			i++;
 		}
 	}
 }

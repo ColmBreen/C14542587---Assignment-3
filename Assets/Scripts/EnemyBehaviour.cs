@@ -86,6 +86,12 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 	}
 	
+	void grenadeDamage()
+	{
+		Instantiate(bloodParticles, transform.position, Quaternion.identity);
+		Destroy(gameObject);
+	}
+	
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.tag == "Bullet")
