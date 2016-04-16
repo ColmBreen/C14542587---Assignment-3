@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -64,7 +65,7 @@ public class GM : MonoBehaviour {
 	void Reset()
 	{
 		Time.timeScale = 1f;
-		Application.LoadLevel(Application.loadedLevel);
+		SceneManager.LoadScene("Assignment_LevelOne");
 	}
 	
 	public void LoseLife()
