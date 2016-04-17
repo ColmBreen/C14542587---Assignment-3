@@ -17,10 +17,15 @@ public class EnemyBehaviour : MonoBehaviour {
 	public GameObject Bullet;
 	public GameObject bloodParticles;
 	public GameObject playerC;
+	private Renderer rend;
+	public Material forward;
+	public Material backward;
+	
 	Vector3 temp, temp2;
 	
 	void Start()
 	{
+		rend = GetComponent<Renderer>();
 		erb = GetComponent<Rigidbody2D>();
 		startPos = erb.transform.position.x;
 		directions = -1;
@@ -70,11 +75,13 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		if(erb.transform.position.x > (startPos - 10) && directions < 0 && wall == false && shootR == false && shootL == false)
 		{
+			rend.sharedMaterial = backward;
 			moveVelocity = -speed;
 			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
 		}
 		else if(erb.transform.position.x < (startPos + 10) && directions > 0 && wall == false && shootR == false && shootL == false)
 		{
+			rend.sharedMaterial = forward;
 			moveVelocity = speed;
 			erb.velocity = new Vector2(moveVelocity, erb.velocity.y);
 		}

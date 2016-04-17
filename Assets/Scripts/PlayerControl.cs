@@ -9,8 +9,7 @@ public class PlayerControl : MonoBehaviour {
 	private float nextFire = 0.0f;
 	private float fireRate = 0.5f;
 	private int grenades = 3;
-	
-	public Renderer rend;
+	private Renderer rend;
 	public Material forward;
 	public Material backward;
 	public float speed;
