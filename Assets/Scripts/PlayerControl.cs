@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;
 		health = 50;
+		GM.instance.pHealth = 50;
 	}
 	
 	void Update()
@@ -88,6 +89,13 @@ public class PlayerControl : MonoBehaviour {
 			moveVelocity = speed;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
+		
+		if(GM.instance.health == true)
+		{
+			this.health = 50;
+			GM.instance.pHealth = 50;
+			GM.instance.health = false;
+		}
 	}
 	
 	void grenadeDamage()
@@ -100,6 +108,7 @@ public class PlayerControl : MonoBehaviour {
 		if(other.gameObject.tag == "Bullet")
 		{
 			health -= 10;
+			GM.instance.pHealth -= 10;
 		}
 		if(health <= 0)
 		{

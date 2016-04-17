@@ -9,21 +9,27 @@ public class GM : MonoBehaviour {
 	public int enemies = 10;
 	public float resetDelay = 1f;
 	public Text livesText;
+	public Text healthText;
 	public GameObject gameOver;
 	public GameObject youWon;
 	public GameObject player;
 	public GameObject enemyPrefab;
 	public GameObject bloodParticles;
+	public GameObject healthPickup;
 	public Vector3 playerPos;
 	public bool playerFire = false;
+	public bool health = false;
 	public int playerDirection = 0;
 	public int enemyDirection = -1;
+	public int pHealth;
 	
 	public static GM instance = null;
 	
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
+	private GameObject healthPick;
 	private bool dead = false;
+	
 	
 	void Start () 
 	{
@@ -43,6 +49,7 @@ public class GM : MonoBehaviour {
 	{
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
 		enemiesObj = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
+		healthPick = Instantiate(healthPickup, healthPickup.transform.position, Quaternion.identity) as GameObject;
 	}
 	
 	void LateUpdate()
@@ -51,6 +58,8 @@ public class GM : MonoBehaviour {
 			playerPos = clonePlayer.transform.position;
 		else
 			playerPos = playerPos;
+		
+		healthText.text = "Health: " + pHealth;
 	}
 	
 	void CheckGameOver()
