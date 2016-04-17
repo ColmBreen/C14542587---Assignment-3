@@ -10,6 +10,9 @@ public class PlayerControl : MonoBehaviour {
 	private float fireRate = 0.5f;
 	private int grenades = 3;
 	
+	public Renderer rend;
+	public Material forward;
+	public Material backward;
 	public float speed;
 	public float jump;
 	public int health;
@@ -21,6 +24,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Start()
 	{
+		rend = GetComponent<Renderer>();
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;
 		health = 50;
@@ -80,6 +84,7 @@ public class PlayerControl : MonoBehaviour {
 			direction = 0;
 			GM.instance.playerDirection = 0;
 			moveVelocity = -speed;
+			rend.sharedMaterial = backward;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		}
 		else if(Input.GetKey(KeyCode.D))
@@ -87,7 +92,13 @@ public class PlayerControl : MonoBehaviour {
 			direction = 1;
 			GM.instance.playerDirection = 1;
 			moveVelocity = speed;
+			rend.sharedMaterial = forward;
 			rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
+		}
+		
+		if(rb.position.x <= 0)
+		{
+			rb.position = new Vector2 (0, rb.transform.position.y);
 		}
 		
 		if(GM.instance.health == true)

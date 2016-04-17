@@ -13,5 +13,9 @@ public class CameraController : MonoBehaviour {
 	
 	void LateUpdate () {
 		transform.position = GM.instance.playerPos + offset;
+		if(transform.position.x <= 10)
+		{
+			transform.position = new Vector3 (10, transform.position.y, transform.position.z);
+		}
 	}
 }
