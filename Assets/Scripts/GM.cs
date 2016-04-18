@@ -74,6 +74,13 @@ public class GM : MonoBehaviour {
 		}
 	}
 	
+	public void WinGame()
+	{
+		youWon.SetActive(true);
+		Time.timeScale = 4f;
+		SceneManager.LoadScene("Assignment_MainMenu");
+	}
+	
 	void Reset()
 	{
 		Time.timeScale = 1f;

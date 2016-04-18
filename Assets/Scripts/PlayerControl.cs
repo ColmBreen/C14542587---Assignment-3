@@ -122,6 +122,11 @@ public class PlayerControl : MonoBehaviour {
 		{
 			rb.position = new Vector2 (0, rb.transform.position.y);
 		}
+		if(rb.position.x >= 185)
+		{
+			rb.position = new Vector2 (185, rb.transform.position.y);
+			GM.instance.WinGame();
+		}
 		
 		if(rb.position.y <= -10)
 		{
