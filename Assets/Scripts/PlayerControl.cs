@@ -10,6 +10,12 @@ public class PlayerControl : MonoBehaviour {
 	private float fireRate = 0.5f;
 	private int grenades = 3;
 	private Renderer rend;
+	private AudioSource source;
+	private float volRange = 0.5f;
+	private float volHighRange = 1f;
+	private float vol;
+	
+	public AudioClip shootSound;
 	public Material forward;
 	public Material backward;
 	public float speed;
@@ -20,6 +26,11 @@ public class PlayerControl : MonoBehaviour {
 	public GameObject Grenade;
 	public int direction = 1;
 	public Transform ShotSpawn;
+	
+	void Awake()
+	{
+		source = GetComponent<AudioSource>();
+	}
 	
 	void Start()
 	{
@@ -45,6 +56,8 @@ public class PlayerControl : MonoBehaviour {
 			{
 				if(GM.instance.guns[0] == true)
 				{
+					vol = Random.Range(volRange, volHighRange);
+					source.PlayOneShot(shootSound, vol);
 					if(direction == 1)
 						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
 					else
@@ -68,6 +81,8 @@ public class PlayerControl : MonoBehaviour {
 			}
 			else
 			{
+				vol = Random.Range(volRange, volHighRange);
+				source.PlayOneShot(shootSound, vol);
 				if(direction == 1)
 					Instantiate (Bullet, ShotSpawn.position, ShotSpawn.rotation);
 				else

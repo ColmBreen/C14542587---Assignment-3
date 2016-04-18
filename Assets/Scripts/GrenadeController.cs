@@ -7,12 +7,20 @@ public class GrenadeController : MonoBehaviour {
 	private float cook;
 	private Rigidbody2D rb;
 	private bool playerDead;
+	private AudioSource source;
+	private float volRange = 0.5f;
+	private float volHighRange = 1f;
+	private float vol;
 	
+	public AudioClip grenadeSound;
 	public GameObject bloodParticles;
 	public GameObject dirtParticles;
 	
+	
+	
 	void Start()
 	{
+		source = GetComponent<AudioSource>();
 		playerDead = false;
 		grenadeSpeed = 10;
 		rb = GetComponent<Rigidbody2D>();
@@ -28,6 +36,8 @@ public class GrenadeController : MonoBehaviour {
 	{
 		if(Time.time > cook)
 		{
+			vol = Random.Range(volRange, volHighRange);
+			source.PlayOneShot(grenadeSound, vol);
 			Explosion(rb.transform.position, 2f);
 		}
 	}
