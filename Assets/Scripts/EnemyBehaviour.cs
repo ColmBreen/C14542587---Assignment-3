@@ -3,23 +3,24 @@ using System.Collections;
 
 public class EnemyBehaviour : MonoBehaviour {
 	
-	private Rigidbody2D erb;
-	private float startPos;
-	private float moveVelocity;
 	public float speed;
 	public int directions;
 	public int health;
-	private bool wall;
-	private bool shootL, shootR;
 	public Transform ShotSpawn;
 	public float fireRate = 0.5f;
 	public float nextFire = 0.0f;
 	public GameObject Bullet;
 	public GameObject bloodParticles;
 	public GameObject playerC;
-	private Renderer rend;
 	public Material forward;
 	public Material backward;
+	
+	private Rigidbody2D erb;
+	private float startPos;
+	private float moveVelocity;
+	private bool wall;
+	private bool shootL, shootR;
+	private Renderer rend;
 	
 	Vector3 temp, temp2;
 	

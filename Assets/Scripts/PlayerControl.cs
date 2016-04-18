@@ -35,13 +35,36 @@ public class PlayerControl : MonoBehaviour {
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			GM.instance.playerFire = true;
-			nextFire = Time.time + fireRate;
+			if(GM.instance.guns[1] == true)
+			{
+				nextFire = Time.time + 0.2f;
+			}
+			else
+				nextFire = Time.time + fireRate;
 			if(Input.GetKey(KeyCode.S))
 			{
-				if(direction == 1)
-					Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
-				else
-					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
+				if(GM.instance.guns[0] == true)
+				{
+					if(direction == 1)
+						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
+					else
+						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
+				}
+				/*else if(GM.instance.guns[1] == true)
+				{
+					if(direction == 1)
+					{
+						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, 20f)));
+						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
+						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, -20f)));
+					}
+					else
+					{
+						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, 20f)));
+						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
+						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, -20f)));
+					}
+				}*/
 			}
 			else
 			{
@@ -100,17 +123,17 @@ public class PlayerControl : MonoBehaviour {
 			rb.position = new Vector2 (0, rb.transform.position.y);
 		}
 		
+		if(rb.position.y <= -10)
+		{
+			GM.instance.LoseLife();
+		}
+		
 		if(GM.instance.health == true)
 		{
 			this.health = 50;
 			GM.instance.pHealth = 50;
 			GM.instance.health = false;
 		}
-	}
-	
-	void grenadeDamage()
-	{
-		GM.instance.LoseLife();
 	}
 	
 	void OnCollisionEnter2D(Collision2D other)

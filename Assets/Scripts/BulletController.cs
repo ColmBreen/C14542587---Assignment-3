@@ -5,6 +5,7 @@ public class BulletController : MonoBehaviour {
 	
 	public float bulletSpeed;
 	private Rigidbody2D rb;
+	private float travelTime;
 	
 	void Start()
 	{
@@ -17,6 +18,7 @@ public class BulletController : MonoBehaviour {
 			else
 				rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);
 			GM.instance.playerFire = false;
+			travelTime = Time.time;
 		}
 		else
 		{
@@ -24,6 +26,15 @@ public class BulletController : MonoBehaviour {
 				rb.velocity = new Vector2(bulletSpeed, 0.0f);
 			else
 				rb.velocity = new Vector2(bulletSpeed * -1, 0.0f);
+			travelTime = Time.time;
+		}
+	}
+	
+	void Update()
+	{
+		if(Time.time > (travelTime + 2f))
+		{
+			Destroy(this.gameObject);
 		}
 	}
 	

@@ -17,5 +17,9 @@ public class CameraController : MonoBehaviour {
 		{
 			transform.position = new Vector3 (10, transform.position.y, transform.position.z);
 		}
+		if(transform.position.y <= -5)
+		{
+			transform.position = new Vector3 (transform.position.x, -5, transform.position.z);
+		}
 	}
 }

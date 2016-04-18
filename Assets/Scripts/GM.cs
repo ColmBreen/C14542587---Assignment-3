@@ -23,6 +23,8 @@ public class GM : MonoBehaviour {
 	public int enemyDirection = -1;
 	public int pHealth;
 	
+	public bool[] guns = new bool[4];
+	
 	public static GM instance = null;
 	
 	private GameObject clonePlayer;
@@ -33,6 +35,7 @@ public class GM : MonoBehaviour {
 	
 	void Start () 
 	{
+		guns[0] = true;
 		if(instance == null)
 		{
 			instance = this;
