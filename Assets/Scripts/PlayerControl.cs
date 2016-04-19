@@ -34,6 +34,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Start()
 	{
+		GM.instance.enemyReset = false;
 		rend = GetComponent<Renderer>();
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;

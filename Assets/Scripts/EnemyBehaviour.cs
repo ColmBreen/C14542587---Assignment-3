@@ -57,6 +57,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		if((temp.x < erb.transform.position.x) && GM.instance.playerPos.x > erb.transform.position.x)
 		{
 			shootR = true;
+			rend.sharedMaterial = forward;
 			this.directions = 1;
 			GM.instance.enemyDirection = 1;
 			erb.velocity = new Vector2(0, 0);
@@ -71,6 +72,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		else if((temp2.x > erb.transform.position.x) && GM.instance.playerPos.x < erb.transform.position.x)
 		{
 			shootL = true;
+			rend.sharedMaterial = backward;
 			this.directions = -1;
 			GM.instance.enemyDirection = -1;
 			erb.velocity = new Vector2(0, 0);
@@ -86,6 +88,11 @@ public class EnemyBehaviour : MonoBehaviour {
 		{
 			shootL = false;
 			shootR = false;
+		}
+		
+		if(GM.instance.enemyReset == true)
+		{
+			Destroy(gameObject);
 		}
 	}
 	

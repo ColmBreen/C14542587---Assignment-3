@@ -16,25 +16,32 @@ public class GM : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject bloodParticles;
 	public GameObject healthPickup;
+	public GameObject terrainInstance;
 	public Vector3 playerPos;
 	public bool playerFire = false;
 	public bool health = false;
-	public int playerDirection = 0;
+	public int playerDirection = 1;
 	public int enemyDirection = -1;
 	public int pHealth;
+	public bool enemyReset = false;
 	
-	public bool[] guns = new bool[4];
+	public bool[] guns = new bool[2];
 	
 	public static GM instance = null;
 	
-	private bool enemybehind;
+	private int enemyBack;
 	private float enemyRate = 10f;
 	private float nextEnemy = 0.0f;
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
 	private GameObject healthPick;
+	private GameObject terrain;
 	private bool dead = false;
 	
+	void Awake()
+	{
+		terrain = Instantiate(terrainInstance, terrainInstance.transform.position, Quaternion.identity) as GameObject;
+	}
 	
 	void Start () 
 	{
@@ -48,7 +55,7 @@ public class GM : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-		
+	
 		Setup();
 	}
 	
@@ -69,11 +76,18 @@ public class GM : MonoBehaviour {
 	}
 	
 	void Update()
-	{
-		enemyBehind = false;
+	{	
 		if(Time.time > nextEnemy)
 		{
-			enemyPrefab.transform.position = playerPos + new Vector3(3f, 10f, 0);
+			enemyBack = Random.Range(0, 2);
+			if(playerPos.x > 20 && enemyBack == 1)
+			{
+				enemyPrefab.transform.position = playerPos + new Vector3(-5f, 10f, 0);
+			}
+			else if(enemyBack == 0)
+			{
+				enemyPrefab.transform.position = playerPos + new Vector3(20f, 10f, 0);
+			}
 			enemiesObj = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity) as GameObject;
 			nextEnemy = Time.time + enemyRate;
 		}
@@ -116,7 +130,7 @@ public class GM : MonoBehaviour {
 	void SetupPlayer()
 	{
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
-		enemiesObj = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
+		enemyReset = true;
 		dead = false;
 	}
 }
