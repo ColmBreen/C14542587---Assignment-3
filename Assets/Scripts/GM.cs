@@ -27,6 +27,9 @@ public class GM : MonoBehaviour {
 	
 	public static GM instance = null;
 	
+	private bool enemybehind;
+	private float enemyRate = 10f;
+	private float nextEnemy = 0.0f;
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
 	private GameObject healthPick;
@@ -35,6 +38,7 @@ public class GM : MonoBehaviour {
 	
 	void Start () 
 	{
+		Time.timeScale = 1f;
 		guns[0] = true;
 		if(instance == null)
 		{
@@ -51,7 +55,6 @@ public class GM : MonoBehaviour {
 	public void Setup()
 	{
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
-		enemiesObj = Instantiate(enemyPrefab, transform.position, Quaternion.identity) as GameObject;
 		healthPick = Instantiate(healthPickup, healthPickup.transform.position, Quaternion.identity) as GameObject;
 	}
 	
@@ -63,6 +66,17 @@ public class GM : MonoBehaviour {
 			playerPos = playerPos;
 		
 		healthText.text = "Health: " + pHealth;
+	}
+	
+	void Update()
+	{
+		enemyBehind = false;
+		if(Time.time > nextEnemy)
+		{
+			enemyPrefab.transform.position = playerPos + new Vector3(3f, 10f, 0);
+			enemiesObj = Instantiate(enemyPrefab, enemyPrefab.transform.position, Quaternion.identity) as GameObject;
+			nextEnemy = Time.time + enemyRate;
+		}
 	}
 	
 	void CheckGameOver()
@@ -77,7 +91,7 @@ public class GM : MonoBehaviour {
 	public void WinGame()
 	{
 		youWon.SetActive(true);
-		Time.timeScale = 4f;
+		Time.timeScale = .25f;
 		SceneManager.LoadScene("Assignment_MainMenu");
 	}
 	

@@ -14,7 +14,14 @@ public class EnemyBehaviour : MonoBehaviour {
 	public GameObject playerC;
 	public Material forward;
 	public Material backward;
+	public AudioClip shootSound;
+	public AudioClip hurtSound;
 	
+	private AudioSource source;
+	private AudioSource source2;
+	private float volRange = 0.5f;
+	private float volHighRange = 1f;
+	private float vol;
 	private Rigidbody2D erb;
 	private float startPos;
 	private float moveVelocity;
@@ -23,6 +30,12 @@ public class EnemyBehaviour : MonoBehaviour {
 	private Renderer rend;
 	
 	Vector3 temp, temp2;
+	
+	void Awake()
+	{
+		source = GetComponent<AudioSource>();
+		source2 = GetComponent<AudioSource>();
+	}
 	
 	void Start()
 	{
@@ -49,6 +62,8 @@ public class EnemyBehaviour : MonoBehaviour {
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{
+				vol = Random.Range(volRange, volHighRange);
+				source.PlayOneShot(shootSound, vol);
 				nextFire = Time.time + fireRate;
 				Instantiate (Bullet, ShotSpawn.position + Vector3.right, ShotSpawn.rotation);
 			}
@@ -61,6 +76,8 @@ public class EnemyBehaviour : MonoBehaviour {
 			erb.velocity = new Vector2(0, 0);
 			if(Time.time > nextFire)
 			{
+				vol = Random.Range(volRange, volHighRange);
+				source.PlayOneShot(shootSound, vol);
 				nextFire = Time.time + fireRate;
 				Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)), ShotSpawn.rotation);
 			}
@@ -94,12 +111,6 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 	}
 	
-	void grenadeDamage()
-	{
-		Instantiate(bloodParticles, transform.position, Quaternion.identity);
-		Destroy(gameObject);
-	}
-	
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.tag == "Bullet")
@@ -108,6 +119,8 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 		if(health <= 0)
 		{
+			vol = Random.Range(volRange, volHighRange);
+			source2.PlayOneShot(hurtSound, vol);
 			Instantiate(bloodParticles, transform.position, Quaternion.identity);
 			Destroy(gameObject);
 		}

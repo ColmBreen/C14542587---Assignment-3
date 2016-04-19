@@ -23,10 +23,4 @@ public class TerrainDestroy : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	
-	void grenadeDamage()
-	{
-		Instantiate(dirtParticles, transform.position, Quaternion.identity);
-		Destroy(gameObject);
-	}
 }
