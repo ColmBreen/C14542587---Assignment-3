@@ -20,7 +20,7 @@ public class GM : MonoBehaviour {
 	public Vector3 playerPos;
 	public bool playerFire = false;
 	public bool health = false;
-	public int playerDirection = 1;
+	public int playerDirection;
 	public int enemyDirection = -1;
 	public int pHealth;
 	public bool enemyReset = false;
@@ -55,7 +55,9 @@ public class GM : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-	
+		
+		playerDirection = 1;
+		
 		Setup();
 	}
 	
@@ -105,7 +107,6 @@ public class GM : MonoBehaviour {
 	public void WinGame()
 	{
 		youWon.SetActive(true);
-		Time.timeScale = .25f;
 		SceneManager.LoadScene("Assignment_MainMenu");
 	}
 	
@@ -122,13 +123,13 @@ public class GM : MonoBehaviour {
 		Instantiate(bloodParticles, player.transform.position, Quaternion.identity);
 		dead = true;
 		Destroy(clonePlayer);
-		Destroy(enemiesObj);
 		Invoke("SetupPlayer", resetDelay);
 		CheckGameOver();
 	}
 	
 	void SetupPlayer()
 	{
+		terrain = Instantiate(terrainInstance, terrainInstance.transform.position, Quaternion.identity) as GameObject;
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
 		enemyReset = true;
 		dead = false;
