@@ -29,7 +29,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	private bool shootL, shootR;
 	private Renderer rend;
 	
-	Vector3 temp, temp2;
+	Vector3 temp, temp2, temp3, temp4;
 	
 	void Awake()
 	{
@@ -54,7 +54,9 @@ public class EnemyBehaviour : MonoBehaviour {
 	{
 		temp = GM.instance.playerPos - new Vector3(10f, 0f, 0f);
 		temp2 = GM.instance.playerPos + new Vector3(10f, 0f, 0f);
-		if((temp.x < erb.transform.position.x) && GM.instance.playerPos.x > erb.transform.position.x)
+		temp3 = GM.instance.playerPos + new Vector3(0f, 1f, 0f);
+		temp4 = GM.instance.playerPos - new Vector3(0f, 1f, 0f);
+		if((temp.x < erb.transform.position.x) && GM.instance.playerPos.x > erb.transform.position.x && erb.transform.position.y < temp3.y &&  erb.transform.position.y > temp4.y)
 		{
 			shootR = true;
 			rend.sharedMaterial = forward;
