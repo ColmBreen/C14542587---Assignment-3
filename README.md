@@ -23,3 +23,10 @@ can be found which provide the player with a full health boost or faster speed o
 they level is reset with the player having to start again. The player has three lives. If they lose all of their lives a Game Over
 message is shown and the user is taken back to the main menu. If the player manages to make it to the end of the level, a simial You 
 Won message is displayed and the user is once again taken back to the main menu.
+
+
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/MainMenu.jpg)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/SubMainMenu.jpg)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GamePlay.jpg)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GameOver.jpg)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/WinGame.jpg)
