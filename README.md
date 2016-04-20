@@ -25,8 +25,8 @@ message is shown and the user is taken back to the main menu. If the player mana
 Won message is displayed and the user is once again taken back to the main menu.
 
 
-![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/MainMenu.jpg)
-![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/SubMainMenu.jpg)
-![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GamePlay.jpg)
-![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GameOver.jpg)
-![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/WinGame.jpg)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/MainMenu.png)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/SubMainMenu.png)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GamePlay.png)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/GameOver.png)
+![alt tag](https://github.com/ColmBreen/C14542587-Assignment-2/blob/master/data/WinGame.png)
