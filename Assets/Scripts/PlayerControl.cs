@@ -44,6 +44,10 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Time.timeScale = 0.0f;
+		}
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			GM.instance.playerFire = true;
