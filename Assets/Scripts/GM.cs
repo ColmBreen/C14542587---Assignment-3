@@ -30,7 +30,7 @@ public class GM : MonoBehaviour {
 	public static GM instance = null;
 	
 	private int enemyBack;
-	private float enemyRate = 10f;
+	private float enemyRate = 7f;
 	private float nextEnemy = 0.0f;
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
