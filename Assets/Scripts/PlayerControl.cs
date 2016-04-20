@@ -14,12 +14,12 @@ public class PlayerControl : MonoBehaviour {
 	private float volRange = 0.5f;
 	private float volHighRange = 1f;
 	private float vol;
+	private float speed = 7;
+	private float jump = 15;
 	
 	public AudioClip shootSound;
 	public Material forward;
 	public Material backward;
-	public float speed;
-	public float jump;
 	public int health;
 	public bool fire = false;
 	public GameObject Bullet;

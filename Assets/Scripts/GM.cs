@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class GM : MonoBehaviour {
 	
-	public int lives = 3;
-	public int enemies = 10;
-	public float resetDelay = 1f;
+	public int lives;
+	public float resetDelay;
 	public Text livesText;
 	public Text healthText;
 	public GameObject gameOver;
@@ -21,7 +20,7 @@ public class GM : MonoBehaviour {
 	public bool playerFire = false;
 	public bool health = false;
 	public int playerDirection;
-	public int enemyDirection = -1;
+	public int enemyDirection;
 	public int pHealth;
 	public bool enemyReset = false;
 	
@@ -30,8 +29,8 @@ public class GM : MonoBehaviour {
 	public static GM instance = null;
 	
 	private int enemyBack;
-	private float enemyRate = 7f;
-	private float nextEnemy = 0.0f;
+	private float enemyRate;
+	private float nextEnemy;
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
 	private GameObject healthPick;
@@ -57,6 +56,12 @@ public class GM : MonoBehaviour {
 		}
 		
 		playerDirection = 1;
+		lives = 3;
+		resetDelay = 1.5f;
+		enemyDirection = -1;
+		
+		enemyRate = 7f;
+		nextEnemy = 0.0f;
 		
 		Setup();
 	}
@@ -100,20 +105,19 @@ public class GM : MonoBehaviour {
 		if(lives < 1)
 		{
 			gameOver.SetActive(true);
-			Invoke("Reset", resetDelay);
+			Invoke("MainMenu", resetDelay);
 		}
 	}
 	
 	public void WinGame()
 	{
 		youWon.SetActive(true);
-		SceneManager.LoadScene("Assignment_MainMenu");
+		Invoke("MainMenu", resetDelay);
 	}
 	
-	void Reset()
+	void MainMenu()
 	{
-		Time.timeScale = 1f;
-		SceneManager.LoadScene("Assignment_LevelOne");
+		SceneManager.LoadScene("Assignment_MainMenu");
 	}
 	
 	public void LoseLife()
