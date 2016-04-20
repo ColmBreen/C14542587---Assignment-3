@@ -15,6 +15,7 @@ public class GM : MonoBehaviour {
 	public GameObject enemyPrefab;
 	public GameObject bloodParticles;
 	public GameObject healthPickup;
+	public GameObject gunPickup;
 	public GameObject terrainInstance;
 	public Vector3 playerPos;
 	public bool playerFire = false;
@@ -34,18 +35,23 @@ public class GM : MonoBehaviour {
 	private GameObject clonePlayer;
 	private GameObject enemiesObj;
 	private GameObject healthPick;
+	private GameObject gunPick;
 	private GameObject terrain;
 	private bool dead = false;
 	
 	void Awake()
 	{
+		//Adds the terrain into the game
 		terrain = Instantiate(terrainInstance, terrainInstance.transform.position, Quaternion.identity) as GameObject;
 	}
 	
 	void Start () 
 	{
+		//Sets the speed of time to the default speed
 		Time.timeScale = 1f;
+		//Equips the player with the default gun type
 		guns[0] = true;
+		//If another instance of te GM exists, destroy it and set this one as the main
 		if(instance == null)
 		{
 			instance = this;
@@ -54,7 +60,7 @@ public class GM : MonoBehaviour {
 		{
 			Destroy(gameObject);
 		}
-		
+		//Sets variables
 		playerDirection = 1;
 		lives = 3;
 		resetDelay = 1.5f;
@@ -68,22 +74,26 @@ public class GM : MonoBehaviour {
 	
 	public void Setup()
 	{
+		//Creates instance of the player, healthpickup and gunPickup
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
 		healthPick = Instantiate(healthPickup, healthPickup.transform.position, Quaternion.identity) as GameObject;
+		gunPick = Instantiate(gunPickup, gunPickup.transform.position, Quaternion.identity) as GameObject;
 	}
 	
 	void LateUpdate()
 	{
+		//Keeps track of playerposition
 		if(!dead)
 			playerPos = clonePlayer.transform.position;
 		else
 			playerPos = playerPos;
-		
+		//Sets the on screen text for health
 		healthText.text = "Health: " + pHealth;
 	}
 	
 	void Update()
 	{	
+		//Spawns enemies based on time and player position 
 		if(Time.time > nextEnemy)
 		{
 			enemyBack = Random.Range(0, 2);
@@ -102,6 +112,7 @@ public class GM : MonoBehaviour {
 	
 	void CheckGameOver()
 	{
+		//Game over condition
 		if(lives < 1)
 		{
 			gameOver.SetActive(true);
@@ -111,17 +122,20 @@ public class GM : MonoBehaviour {
 	
 	public void WinGame()
 	{
+		//Win Game condition
 		youWon.SetActive(true);
 		Invoke("MainMenu", resetDelay);
 	}
 	
 	void MainMenu()
 	{
+		//Returns to the main menu when called
 		SceneManager.LoadScene("Assignment_MainMenu");
 	}
 	
 	public void LoseLife()
 	{
+		//Steps taken when the player dies
 		lives--;
 		livesText.text = "Lives: " + lives;
 		Instantiate(bloodParticles, player.transform.position, Quaternion.identity);
@@ -133,6 +147,7 @@ public class GM : MonoBehaviour {
 	
 	void SetupPlayer()
 	{
+		//Resets the level after the player has died
 		terrain = Instantiate(terrainInstance, terrainInstance.transform.position, Quaternion.identity) as GameObject;
 		clonePlayer = Instantiate(player, player.transform.position, Quaternion.identity) as GameObject;
 		enemyReset = true;

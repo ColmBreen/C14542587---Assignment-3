@@ -29,12 +29,14 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Awake()
 	{
+		//Sets up the audiosource
 		source = GetComponent<AudioSource>();
 	}
 	
 	void Start()
 	{
 		GM.instance.enemyReset = false;
+		//Sets up Renderer to allow for switching sprites
 		rend = GetComponent<Renderer>();
 		rb = GetComponent<Rigidbody2D>();
 		grounded = true;
@@ -44,23 +46,24 @@ public class PlayerControl : MonoBehaviour {
 	
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Time.timeScale = 0.0f;
-		}
+		//Checks if the player has tried to shoot
 		if(Input.GetKey(KeyCode.Space) && Time.time > nextFire)
 		{
 			GM.instance.playerFire = true;
+			//Checks if player has gun pickup
 			if(GM.instance.guns[1] == true)
 			{
+				//Sets the time which the player has to wait before firing again
 				nextFire = Time.time + 0.2f;
 			}
 			else
 				nextFire = Time.time + fireRate;
+			//Fires bullets low if player is holding down S
 			if(Input.GetKey(KeyCode.S))
 			{
 				if(GM.instance.guns[0] == true)
 				{
+					//Sets a random volume for gunshots within a small limit
 					vol = Random.Range(volRange, volHighRange);
 					source.PlayOneShot(shootSound, vol);
 					if(direction == 1)
@@ -68,21 +71,6 @@ public class PlayerControl : MonoBehaviour {
 					else
 						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
 				}
-				/*else if(GM.instance.guns[1] == true)
-				{
-					if(direction == 1)
-					{
-						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, 20f)));
-						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), ShotSpawn.rotation);
-						Instantiate (Bullet, ShotSpawn.position + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, -20f)));
-					}
-					else
-					{
-						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, 20f)));
-						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), ShotSpawn.rotation);
-						Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)) + (Vector3.down / 2), (ShotSpawn.rotation * Quaternion.Euler(0f, 0f, -20f)));
-					}
-				}*/
 			}
 			else
 			{
@@ -94,7 +82,7 @@ public class PlayerControl : MonoBehaviour {
 					Instantiate (Bullet, (ShotSpawn.position + (Vector3.left + Vector3.left)), ShotSpawn.rotation);
 			}
 		}
-		
+		//Checks to see if player has thrown a grenade
 		if(Input.GetKeyDown(KeyCode.LeftShift) && grenades > 0 && Time.time > nextFire)
 		{
 			nextFire = Time.time + fireRate;
@@ -113,6 +101,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
+		//All player movement
 		moveVelocity = 0.0f;
 		rb.velocity = new Vector2(moveVelocity, rb.velocity.y);
 		
@@ -163,6 +152,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D other)
 	{
+		//Checks if player was hit by bullet
 		if(other.gameObject.tag == "Bullet")
 		{
 			health -= 10;
@@ -173,7 +163,7 @@ public class PlayerControl : MonoBehaviour {
 			GM.instance.LoseLife();
 		}
 	}
-	
+	//Checks if player can jump
 	void OnTriggerEnter2D(Collider2D other)
     {
 		if(other.gameObject.tag == "Dirt")

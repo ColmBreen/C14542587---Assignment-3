@@ -6,13 +6,14 @@ public class CameraController : MonoBehaviour {
 	//public GameObject Player;
 	
 	private Vector3 offset;
-
+	//Sets camera to  track player
 	void Start () {
 		offset = transform.position - GM.instance.playerPos;
 	}
 	
 	void LateUpdate () {
 		transform.position = GM.instance.playerPos + offset;
+		//Stops moving left, right and down if values are met
 		if(transform.position.x <= 10)
 		{
 			transform.position = new Vector3 (10, transform.position.y, transform.position.z);

@@ -10,7 +10,7 @@ public class TerrainDestroy : MonoBehaviour {
 	{
 		health = 20;
 	}
-	
+	//Destoys terrain if health is gone.
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.tag == "Bullet")

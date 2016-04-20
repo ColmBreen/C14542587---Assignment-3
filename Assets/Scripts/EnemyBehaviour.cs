@@ -33,12 +33,14 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void Awake()
 	{
+		//Sets up Audio sources
 		source = GetComponent<AudioSource>();
 		source2 = GetComponent<AudioSource>();
 	}
 	
 	void Start()
 	{
+		//Sets renderer to allow switching sprites
 		rend = GetComponent<Renderer>();
 		erb = GetComponent<Rigidbody2D>();
 		startPos = erb.transform.position.x;
@@ -52,10 +54,12 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void Update()
 	{
+		//Creates Vector3s to check if player is within range
 		temp = GM.instance.playerPos - new Vector3(10f, 0f, 0f);
 		temp2 = GM.instance.playerPos + new Vector3(10f, 0f, 0f);
 		temp3 = GM.instance.playerPos + new Vector3(0f, 1.5f, 0f);
 		temp4 = GM.instance.playerPos - new Vector3(0f, 1.5f, 0f);
+		//Checks if player is within shooting range
 		if((temp.x < erb.transform.position.x) && GM.instance.playerPos.x > erb.transform.position.x && erb.transform.position.y < temp3.y &&  erb.transform.position.y > temp4.y)
 		{
 			shootR = true;
@@ -91,7 +95,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			shootL = false;
 			shootR = false;
 		}
-		
+		//Resets enemies if variable is true after player has died
 		if(GM.instance.enemyReset == true)
 		{
 			Destroy(this.gameObject);
@@ -100,6 +104,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	
 	void FixedUpdate()
 	{
+		//Enemy movement code
 		if(erb.transform.position.x > (startPos - 10) && directions < 0 && wall == false && shootR == false && shootL == false)
 		{
 			rend.sharedMaterial = backward;
@@ -119,7 +124,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			wall = false;
 		}
 	}
-	
+	//Checks if hit by bullet
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if(other.gameObject.tag == "Bullet")
@@ -134,7 +139,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	
+	//Checks if collided with wall
 	void OnTriggerEnter2D(Collider2D other)
     {
 		if(other.gameObject.tag == "Dirt")

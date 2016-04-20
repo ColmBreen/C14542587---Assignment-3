@@ -34,6 +34,7 @@ public class GrenadeController : MonoBehaviour {
 	
 	void Update()
 	{
+		//after small period of time Explosion() is called
 		if(Time.time > cook)
 		{
 			vol = Random.Range(volRange, volHighRange);
@@ -41,7 +42,7 @@ public class GrenadeController : MonoBehaviour {
 			Explosion(rb.transform.position, 2f);
 		}
 	}
-	
+	//Destroys any objects within it's radius
 	void Explosion(Vector2 centre, float radius)
 	{
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(centre, radius, 1, -1f, 1f);

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class GunPickup : MonoBehaviour {
-	
+	//If collision with player is detected, sets the players weapon to alternate with faster fire rate
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if(other.gameObject.tag == "Player")
